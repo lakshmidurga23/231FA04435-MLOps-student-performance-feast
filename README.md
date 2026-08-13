@@ -212,7 +212,7 @@ Final Prediction
 Student ID: 1
 Predicted Final Exam Score: 98.85
 ## 8. Required Analysis
-###1. What is the entity in your Feast implementation?
+### 1. What is the entity in your Feast implementation?
 
 The entity is:
 
@@ -220,7 +220,7 @@ student_id
 
 It uniquely identifies each student and is used by Feast to retrieve the student's features.
 
-###2. List the features stored in your FeatureView.
+### 2. List the features stored in your FeatureView.
 
 The student_performance_features FeatureView contains:
 
@@ -234,7 +234,7 @@ part_time_job
 study_attendance_ratio
 performance_change
 study_efficiency
-###3. Explain how one feature was calculated.
+### 3. Explain how one feature was calculated.
 
 The performance_change feature was calculated as:
 
@@ -246,7 +246,7 @@ For Student 1:
 
 This represents the change between the student's previous grade and final examination score.
 
-###4. What is the difference between your original dataset and the feature dataset?
+### 4. What is the difference between your original dataset and the feature dataset?
 
 The original dataset contains 1,000 records and 12 columns, including student information and target variables.
 
@@ -263,7 +263,7 @@ Removes unnecessary columns such as gender and parental_education from the Featu
 The target values are stored separately in:
 
 student_targets.csv
-###5. What is the purpose of the offline store?
+### 5. What is the purpose of the offline store?
 
 The offline store contains historical feature data.
 
@@ -276,7 +276,7 @@ It is used for:
 Historical feature retrieval
 Creating Machine Learning training data
 Reproducing historical features
-###6. What is the purpose of the online store?
+### 6. What is the purpose of the online store?
 
 The online store provides feature values for fast online retrieval during prediction.
 
@@ -285,7 +285,7 @@ This project uses a SQLite online store.
 After materialization, features can be retrieved using:
 
 store.get_online_features()
-###7. What is the purpose of feast apply?
+### 7. What is the purpose of feast apply?
 
 feast apply registers the Feast definitions with the Feature Store.
 
