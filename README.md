@@ -42,7 +42,6 @@ The dataset contains **1,000 student records** and **12 original columns**.
 
 The Machine Learning target is:
 
-```text
 final_exam_score
 3. Feature Engineering
 
