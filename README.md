@@ -43,7 +43,7 @@ The dataset contains **1,000 student records** and **12 original columns**.
 The Machine Learning target is:
 
 final_exam_score
-3. Feature Engineering
+## 3. Feature Engineering
 
 The dataset was cleaned and transformed before registering the features with Feast.
 
@@ -71,7 +71,7 @@ study_efficiency = final_exam_score / study_time_hours
 
 An event_timestamp column was also created for Feast's time-aware feature retrieval.
 
-4. Feast Architecture
+ ## 4. Feast Architecture
 
 The project uses the following Feast workflow:
 
@@ -125,7 +125,7 @@ FeatureView
 The FeatureView is:
 
 student_performance_features
-5. Features Stored in the FeatureView
+## 5. Features Stored in the FeatureView
 
 The student_performance_features FeatureView contains:
 
@@ -142,7 +142,7 @@ study_efficiency
 
 The target final_exam_score is stored separately in student_targets.csv and is used for model training.
 
-6. Implementation
+## 6. Implementation
 Feast Apply
 
 The Feast definitions were registered using:
@@ -183,7 +183,7 @@ student_id = 1
 
 were successfully retrieved from the online store.
 
-7. Results
+## 7. Results
 Model Performance
 Metric	Result
 Training Records	800
@@ -211,7 +211,7 @@ study_efficiency            = 25.0
 Final Prediction
 Student ID: 1
 Predicted Final Exam Score: 98.85
-8. Required Analysis
+## 8. Required Analysis
 1. What is the entity in your Feast implementation?
 
 The entity is:
@@ -304,7 +304,7 @@ was used to register:
 
 student_id
 student_performance_features
-8. What does materialization do?
+## 8. What does materialization do?
 
 Materialization transfers feature values from the offline data source to the online store.
 
@@ -320,7 +320,7 @@ SQLite Online Store
 
 After materialization, the features could be retrieved online for Student 1.
 
-9. What is the advantage of retrieving features through Feast instead of manually calculating them separately during training and prediction?
+## 9. What is the advantage of retrieving features through Feast instead of manually calculating them separately during training and prediction?
 
 Feast provides a centralized way to manage and retrieve features.
 
@@ -333,7 +333,7 @@ Historical features can be retrieved for training.
 Online features can be retrieved for prediction.
 Feature definitions remain consistent.
 Feature management becomes easier to reproduce and maintain.
-10. State two limitations of your current dataset.
+## 10. State two limitations of your current dataset.
 Limitation 1: Limited Academic Information
 
 The dataset contains general student performance information but does not contain detailed subject-level or topic-level information.
@@ -355,7 +355,7 @@ Certification requirements
 
 Therefore, the current implementation mainly demonstrates student performance prediction.
 
-11. State two ways your feature store could be improved when more curriculum and industry evidence becomes available.
+## 11. State two ways your feature store could be improved when more curriculum and industry evidence becomes available.
 Improvement 1: Add Curriculum-Level Features
 
 The Feature Store could be extended with:
@@ -380,7 +380,7 @@ Industry skill-demand trends
 
 This would allow the system to combine student performance with curriculum and industry evidence for better skill-gap analysis.
 
-9. Conclusion
+## 9. Conclusion
 
 This project demonstrates an end-to-end Machine Learning workflow using Feast Feature Store.
 
