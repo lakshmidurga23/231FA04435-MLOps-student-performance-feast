@@ -212,7 +212,7 @@ Final Prediction
 Student ID: 1
 Predicted Final Exam Score: 98.85
 ## 8. Required Analysis
-1. What is the entity in your Feast implementation?
+ # 1. What is the entity in your Feast implementation?
 
 The entity is:
 
