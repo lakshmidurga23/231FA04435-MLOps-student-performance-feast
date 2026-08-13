@@ -1,8 +1,10 @@
-Problem Statement
+# Student Performance Prediction using Feast
+
+## 1. Problem Statement
 
 The objective of this project is to build a Machine Learning pipeline for predicting a student's final examination score using academic and lifestyle-related features.
 
-Feast Feature Store is used to manage the student features and demonstrate:
+Feast Feature Store is used to demonstrate:
 
 - Feature engineering
 - Historical feature retrieval
@@ -11,15 +13,15 @@ Feast Feature Store is used to manage the student features and demonstrate:
 - Online feature retrieval
 - Final prediction
 
-> **Note:** The current implementation focuses on student performance prediction. Curriculum-level and industry-level skill evidence is identified as a future improvement.
+> **Note:** The current implementation focuses on student performance prediction. Curriculum-level and industry-level skill evidence is considered as future work.
 
 ---
 
-## 3. Dataset
+## 2. Dataset
 
 The dataset contains **1,000 student records** and **12 original columns**.
 
-### Original Dataset
+### Original Dataset Columns
 
 | Column | Description |
 |---|---|
@@ -36,44 +38,43 @@ The dataset contains **1,000 student records** and **12 original columns**.
 | `final_exam_score` | Final examination score |
 | `final_grade` | Final letter grade |
 
-The target variable for Machine Learning is:
+### Target Variable
+
+The Machine Learning target is:
 
 ```text
 final_exam_score
-4. Feature Engineering
+3. Feature Engineering
 
 The dataset was cleaned and transformed before registering the features with Feast.
 
-Data preprocessing
+Data Preprocessing
 Missing numerical values were filled using the median.
 Missing parental_education values were replaced with Unknown.
-Yes/No fields were converted to numerical values:
+Yes/No values were converted into numerical values:
 Yes = 1
 No = 0
 Engineered Features
 Study Attendance Ratio
-study_attendance_ratio =
-study_time_hours / attendance_percent
+study_attendance_ratio = study_time_hours / attendance_percent
 
-For example:
+For Student 1:
 
 4.0 / 98.0 = 0.0408
 Performance Change
-performance_change =
-final_exam_score - previous_grade
+performance_change = final_exam_score - previous_grade
 
 For Student 1:
 
 100.0 - 76.9 = 23.1
 Study Efficiency
-study_efficiency =
-final_exam_score / study_time_hours
+study_efficiency = final_exam_score / study_time_hours
 
 An event_timestamp column was also created for Feast's time-aware feature retrieval.
 
-5. Feast Architecture
+4. Feast Architecture
 
-The project uses the following Feast components:
+The project uses the following Feast workflow:
 
 Student Dataset
       |
@@ -125,9 +126,9 @@ FeatureView
 The FeatureView is:
 
 student_performance_features
-6. Features Stored in the FeatureView
+5. Features Stored in the FeatureView
 
-The FeatureView contains:
+The student_performance_features FeatureView contains:
 
 study_time_hours
 attendance_percent
@@ -142,7 +143,7 @@ study_efficiency
 
 The target final_exam_score is stored separately in student_targets.csv and is used for model training.
 
-7. Implementation
+6. Implementation
 Feast Apply
 
 The Feast definitions were registered using:
@@ -169,9 +170,8 @@ Training records: 800
 Testing records: 200
 Materialization
 
-Features were materialized into the SQLite online store using:
+Features were materialized into the SQLite online store.
 
-feast materialize 2025-01-01T00:00:00 2025-02-12T00:00:00
 Online Feature Retrieval
 
 Online features were retrieved using:
@@ -184,7 +184,7 @@ student_id = 1
 
 were successfully retrieved from the online store.
 
-8. Results
+7. Results
 Model Performance
 Metric	Result
 Training Records	800
@@ -199,20 +199,20 @@ Online Feature Retrieval
 
 For Student 1, Feast successfully returned:
 
-study_time_hours           = 4.0
-attendance_percent         = 98.0
-sleep_hours                = 6.5
-previous_grade             = 76.9
-internet_access            = 1
-extracurricular_activities = 1
-part_time_job              = 0
-study_attendance_ratio     = 0.0408
-performance_change         = 23.1
-study_efficiency           = 25.0
+study_time_hours            = 4.0
+attendance_percent          = 98.0
+sleep_hours                 = 6.5
+previous_grade              = 76.9
+internet_access             = 1
+extracurricular_activities  = 1
+part_time_job               = 0
+study_attendance_ratio      = 0.0408
+performance_change          = 23.1
+study_efficiency            = 25.0
 Final Prediction
 Student ID: 1
 Predicted Final Exam Score: 98.85
-9. Required Analysis
+8. Required Analysis
 1. What is the entity in your Feast implementation?
 
 The entity is:
@@ -223,7 +223,7 @@ It uniquely identifies each student and is used by Feast to retrieve the student
 
 2. List the features stored in your FeatureView.
 
-The FeatureView student_performance_features contains:
+The student_performance_features FeatureView contains:
 
 study_time_hours
 attendance_percent
@@ -239,8 +239,7 @@ study_efficiency
 
 The performance_change feature was calculated as:
 
-performance_change =
-final_exam_score - previous_grade
+performance_change = final_exam_score - previous_grade
 
 For Student 1:
 
@@ -250,9 +249,9 @@ This represents the change between the student's previous grade and final examin
 
 4. What is the difference between your original dataset and the feature dataset?
 
-The original dataset contains 1,000 records and 12 columns, including student information and the target variables.
+The original dataset contains 1,000 records and 12 columns, including student information and target variables.
 
-The feature dataset contains the features required by Feast and Machine Learning.
+The feature dataset contains the features required by Feast and the Machine Learning model.
 
 The feature dataset:
 
@@ -275,9 +274,9 @@ student_features.parquet
 
 It is used for:
 
-Historical feature retrieval.
-Creating Machine Learning training data.
-Reproducing historical features.
+Historical feature retrieval
+Creating Machine Learning training data
+Reproducing historical features
 6. What is the purpose of the online store?
 
 The online store provides feature values for fast online retrieval during prediction.
@@ -302,8 +301,10 @@ In this project:
 
 feast apply
 
-was used to register student_id and student_performance_features.
+was used to register:
 
+student_id
+student_performance_features
 8. What does materialization do?
 
 Materialization transfers feature values from the offline data source to the online store.
@@ -334,7 +335,7 @@ Online features can be retrieved for prediction.
 Feature definitions remain consistent.
 Feature management becomes easier to reproduce and maintain.
 10. State two limitations of your current dataset.
-Limitation 1: Limited academic information
+Limitation 1: Limited Academic Information
 
 The dataset contains general student performance information but does not contain detailed subject-level or topic-level information.
 
@@ -344,7 +345,7 @@ Subject-wise scores
 Topic-level performance
 Learning outcomes
 Detailed assessment history
-Limitation 2: Limited curriculum and industry evidence
+Limitation 2: Limited Curriculum and Industry Evidence
 
 The current dataset does not contain curriculum or industry information such as:
 
@@ -356,7 +357,7 @@ Certification requirements
 Therefore, the current implementation mainly demonstrates student performance prediction.
 
 11. State two ways your feature store could be improved when more curriculum and industry evidence becomes available.
-Improvement 1: Add curriculum-level features
+Improvement 1: Add Curriculum-Level Features
 
 The Feature Store could be extended with:
 
@@ -367,7 +368,7 @@ Quiz scores
 Skill mastery
 Course completion
 Learning outcomes
-Improvement 2: Add industry-level features
+Improvement 2: Add Industry-Level Features
 
 The Feature Store could also include:
 
@@ -380,18 +381,7 @@ Industry skill-demand trends
 
 This would allow the system to combine student performance with curriculum and industry evidence for better skill-gap analysis.
 
-10. Limitations and Future Work
-
-The current project demonstrates the core Feast workflow using a student performance dataset.
-
-Future work can extend the Feature Store with curriculum and industry evidence to support:
-
-Student skill-gap analysis
-Personalized learning recommendations
-Career-oriented recommendations
-Subject and topic-level analysis
-Industry skill matching
-11. Conclusion
+9. Conclusion
 
 This project demonstrates an end-to-end Machine Learning workflow using Feast Feature Store.
 
@@ -414,13 +404,13 @@ Feature Materialization
 Online Feature Retrieval
       ↓
 Final Prediction
+Final Results
+Training Records : 800
+Testing Records  : 200
 
-The Random Forest model achieved:
+MAE              : 1.44
+RMSE             : 2.24
+R²               : 0.9535
 
-MAE  = 1.44
-RMSE = 2.24
-R²   = 0.9535
-
-The online Feast workflow successfully retrieved features for Student 1 and produced a final predicted exam score of:
-
-98.85
+Student ID       : 1
+Predicted Score  : 98.85
